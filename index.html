@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> طاها پیشنهاد | برنامه‌نویس</title>
+    <!-- Font Awesome 6 (رایگان) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --bg: #f1f5f9;
+            --surface: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --border-light: #e2e8f0;
+            --accent: #2563eb;
+            --accent-soft: #dbeafe;
+            --shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.08);
+            --radius: 2rem;
+            --transition: 0.25s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0b1120;
+            --surface: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-light: #334155;
+            --accent: #60a5fa;
+            --accent-soft: #1e3a5f;
+            --shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 1.5rem 1rem;
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 2.5rem;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+
+        /* ===== دکمه دارک مود ===== */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            width: 54px;
+            height: 54px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            z-index: 999;
+            backdrop-filter: blur(4px);
+            background: var(--surface);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05) rotate(8deg);
+            border-color: var(--accent);
+        }
+
+        /* ===== منو ===== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px solid var(--border-light);
+            margin-bottom: 2.8rem;
+            transition: border-color var(--transition);
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo i {
+            -webkit-text-fill-color: initial;
+            color: var(--accent);
+            margin-left: 0.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 0.3rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            border-bottom-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        /* ===== معرفی ===== */
+        .intro-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2.8rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .intro-text {
+            flex: 2 1 300px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.25rem 1.2rem;
+            border-radius: 30px;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.3px;
+            border: 1px solid transparent;
+        }
+
+        .intro-text h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.6rem;
+        }
+
+        .intro-text h1 span {
+            background: linear-gradient(145deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin-bottom: 1.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg);
+            padding: 0.55rem 1.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid var(--border-light);
+        }
+
+        .social-links a i {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-soft);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -12px rgba(37, 99, 235, 0.2);
+            border-color: var(--accent);
+        }
+
+        .intro-avatar {
+            flex: 1 1 200px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .avatar-box {
+            background: linear-gradient(145deg, var(--accent-soft), #ede9fe);
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--accent);
+            box-shadow: 0 16px 30px -8px rgba(37, 99, 235, 0.15);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .avatar-box:hover {
+            transform: scale(1.02);
+        }
+
+        /* ===== مهارت‌ها ===== */
+        .skills-section {
+            margin: 3.5rem 0;
+        }
+
+        .skills-section h2,
+        .contact-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .skills-section h2 i,
+        .contact-section h2 i {
+            color: var(--accent);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: var(--bg);
+            padding: 0.8rem 1.2rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            transition: all 0.15s;
+            color: var(--text-primary);
+        }
+
+        .skill-item i {
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 1.8rem;
+            text-align: center;
+        }
+
+        .skill-item:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* ===== تماس ===== */
+        .contact-section {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-light);
+            transition: border-color var(--transition);
+        }
+
+        .contact-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            flex: 1 1 300px;
+        }
+
+        .contact-info p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+            max-width: 420px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid transparent;
+            width: fit-content;
+        }
+
+        .contact-links a i {
+            width: 1.8rem;
+            font-size: 1.3rem;
+            color: var(--accent);
+        }
+
+        .contact-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* ===== فوتر ===== */
+        footer {
+            margin-top: 3.2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+            padding-top: 2rem;
+            transition: border-color var(--transition);
+        }
+
+        /* ===== ریسپانسیو ===== */
+        @media (max-width: 700px) {
+            .container { padding: 1.5rem 1.2rem; }
+            .intro-text h1 { font-size: 2.2rem; }
+            nav { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+            .nav-links { gap: 1.2rem; }
+            .intro-avatar { flex: 1 1 100%; }
+            .avatar-box { width: 140px; height: 140px; font-size: 4rem; }
+            .contact-wrapper { flex-direction: column; align-items: flex-start; }
+            .theme-toggle { bottom: 1.2rem; left: 1.2rem; width: 48px; height: 48px; font-size: 1.4rem; }
+        }
+
+        @media (max-width: 450px) {
+            .social-links a { padding: 0.4rem 1rem; font-size: 0.9rem; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- دکمه دارک مود -->
+    <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <!-- ===== منو ===== -->
+        <nav>
+            <div class="logo"><i class="fas fa-code"></i> Taha Pishnahad<span style="color:var(--accent);">.</span></div>
+            <div class="nav-links">
+                <a href="#intro" class="active"><i class="fas fa-home"></i> معرفی</a>
+                <a href="#skills"><i class="fas fa-cogs"></i> مهارت‌ها</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> تماس</a>
+            </div>
+        </nav>
+
+        <!-- ===== معرفی ===== -->
+        <section class="intro-section" id="intro">
+            <div class="intro-text">
+                <div class="badge"><i class="fas fa-terminal"></i> برنامه‌نویس جونیور کاتلین</div>
+                <h1>سلام، من <span>طاها پیشنهاد</span> هستم</h1>
+                <p>
+                    کدنویسی را با عشق یاد گرفتم و هر روز به دنبال ساخت راه‌حل‌های هوشمند و کاربردی هستم.
+                    تخصص من در زبان کاتلین و توسعه اندروید با تمرکز بر تجربه کاربری و کارایی است.
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/Tahapishnahad" target="_blank"><i class="fab fa-github"></i> گیت‌هاب</a>
+                    <a href="https://ble.ir/whyutry" target="_blank"><i class="fas fa-check-circle"></i> بله</a>
+                </div>
+            </div>
+            <div class="intro-avatar">
+                <div class="avatar-box" id="avatarBox">
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== مهارت‌ها ===== -->
+        <section class="skills-section" id="skills">
+            <h2><i class="fas fa-laptop-code"></i> مهارت‌های من</h2>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="fab fa-kickstarter-k"></i> Kotlin</div>
+                <div class="skill-item"><i class="fab fa-html5"></i> Html5</div>
+                <div class="skill-item"><i class="fab fa-android"></i> Android</div>
+                <div class="skill-item"><i class="fas fa-compass"></i> Jetpack Compose</div>
+                <div class="skill-item"><i class="fab fa-git-alt"></i> Git</div>
+            </div>
+        </section>
+
+        <!-- ===== تماس ===== -->
+        <section class="contact-section" id="contact">
+            <h2><i class="fas fa-address-card"></i> تماس با من</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <p>
+                        <i class="fas fa-chevron-left" style="color:var(--accent);"></i>
+                        خوشحال می‌شوم پیام شما را دریافت کنم. از طریق شبکه‌های زیر با من در ارتباط باشید.
+                    </p>
+                    <div class="contact-links">
+                        <a href="https://github.com/Tahapishnahad" target="_blank"><i class="fab fa-github"></i> github.com/Tahapishnahad</a>
+                        <a href="https://ble.ir/whyutry" target="_blank"><i class="fas fa-check-circle" style="color:#22c55e;"></i> بله: @whyutry</a>
+                        <a href="mailto:tahapishnahad0@gmail.com"><i class="fas fa-envelope"></i> tahapishnahad0@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- فوتر -->
+        <footer>
+            <p>
+                <i class="fas fa-copyright"></i> ۱۴۰۵ – ساخته شده با <i class="fas fa-heart" style="color:#dc2626;"></i> توسط طاها پیشنهاد
+            </p>
+            <p style="margin-top:0.4rem; font-size:0.8rem;">
+                <i class="fab fa-github"></i> گیت‌هاب · <i class="fas fa-check-circle"></i> بله · <i class="fas fa-envelope"></i> جیمیل
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // ===== دارک مود =====
+            const toggleBtn = document.getElementById('themeToggle');
+            const icon = toggleBtn.querySelector('i');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            toggleBtn.addEventListener('click', function() {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (isDark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                }
+            });
+
+            // ===== اسکرول نرم + هایلایت منو =====
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            function updateActiveLink() {
+                let current = '';
+                const scrollPos = window.scrollY + 140;
+                sections.forEach(section => {
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    if (scrollPos >= top && scrollPos < top + height) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            if (sections.length) {
+                window.addEventListener('scroll', updateActiveLink);
+                updateActiveLink();
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const target = this.getAttribute('href');
+                    if (target && target.startsWith('#') && target !== '#') {
+                        e.preventDefault();
+                        const el = document.querySelector(target);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // ===== کلیک روی آواتار =====
+            const avatarBox = document.getElementById('avatarBox');
+            if (avatarBox) {
+                avatarBox.addEventListener('click', function() {
+                    const iconEl = this.querySelector('i');
+                    if (iconEl.classList.contains('fa-user-astronaut')) {
+                        iconEl.classList.replace('fa-user-astronaut', 'fa-laptop-code');
+                    } else {
+                        iconEl.classList.replace('fa-laptop-code', 'fa-user-astronaut');
+                    }
+                });
+            }
+
+            console.log('🚀 سایت شخصی طاها پیشنهاد  - گیت‌هاب، بله، جیمیل');
+        })();
+    </script>
+
+</body>
+</html>
