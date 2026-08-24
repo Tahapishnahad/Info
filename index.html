@@ -1,538 +1,473 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Taha Pishnahad | Developer</title>
-    <!-- Font Awesome 6 (رایگان) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Taha Pishnahad — Junior Kotlin Developer and Android Enthusiast.">
+  <meta name="theme-color" content="#0d1117">
+  <title>Taha Pishnahad · Junior Kotlin Developer</title>
 
-        :root {
-            --bg: #f1f5f9;
-            --surface: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #334155;
-            --border-light: #e2e8f0;
-            --accent: #2563eb;
-            --accent-soft: #dbeafe;
-            --shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.08);
-            --radius: 2rem;
-            --transition: 0.25s ease;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-        [data-theme="dark"] {
-            --bg: #0b1120;
-            --surface: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --border-light: #334155;
-            --accent: #60a5fa;
-            --accent-soft: #1e3a5f;
-            --shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.6);
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 1.5rem 1rem;
-            transition: background var(--transition), color var(--transition);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: var(--surface);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 2rem 2.5rem;
-            transition: background var(--transition), box-shadow var(--transition);
-        }
-
-        /* ===== دکمه دارک مود ===== */
-        .theme-toggle {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            background: var(--surface);
-            border: 1px solid var(--border-light);
-            color: var(--text-primary);
-            width: 54px;
-            height: 54px;
-            border-radius: 40px;
-            font-size: 1.6rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 20px -6px rgba(0,0,0,0.2);
-            transition: all 0.2s;
-            z-index: 999;
-            backdrop-filter: blur(4px);
-            background: var(--surface);
-        }
-        .theme-toggle:hover {
-            transform: scale(1.05) rotate(8deg);
-            border-color: var(--accent);
-        }
-
-        /* ===== منو ===== */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            padding-bottom: 1.2rem;
-            border-bottom: 2px solid var(--border-light);
-            margin-bottom: 2.8rem;
-            transition: border-color var(--transition);
-        }
-
-        .logo {
-            font-size: 1.9rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--accent), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .logo i {
-            -webkit-text-fill-color: initial;
-            color: var(--accent);
-            margin-left: 0.2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 1.05rem;
-            padding: 0.3rem 0.2rem;
-            border-bottom: 3px solid transparent;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            border-bottom-color: var(--accent);
-            color: var(--text-primary);
-        }
-
-        /* ===== معرفی ===== */
-        .intro-section {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 2.8rem;
-            margin-bottom: 3.5rem;
-        }
-
-        .intro-text {
-            flex: 2 1 300px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.25rem 1.2rem;
-            border-radius: 30px;
-            margin-bottom: 0.8rem;
-            letter-spacing: 0.3px;
-            border: 1px solid transparent;
-        }
-
-        .intro-text h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 0.6rem;
-        }
-
-        .intro-text h1 span {
-            background: linear-gradient(145deg, var(--accent), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .intro-text p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 480px;
-            margin-bottom: 1.8rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg);
-            padding: 0.55rem 1.5rem;
-            border-radius: 40px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 500;
-            transition: all 0.2s;
-            border: 1px solid var(--border-light);
-        }
-
-        .social-links a i {
-            font-size: 1.2rem;
-            color: var(--accent);
-        }
-
-        .social-links a:hover {
-            background: var(--accent-soft);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -12px rgba(37, 99, 235, 0.2);
-            border-color: var(--accent);
-        }
-
-        .intro-avatar {
-            flex: 1 1 200px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .avatar-box {
-            background: linear-gradient(145deg, var(--accent-soft), #ede9fe);
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: var(--accent);
-            box-shadow: 0 16px 30px -8px rgba(37, 99, 235, 0.15);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .avatar-box:hover {
-            transform: scale(1.02);
-        }
-
-        /* ===== مهارت‌ها ===== */
-        .skills-section {
-            margin: 3.5rem 0;
-        }
-
-        .skills-section h2,
-        .contact-section h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .skills-section h2 i,
-        .contact-section h2 i {
-            color: var(--accent);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-item {
-            background: var(--bg);
-            padding: 0.8rem 1.2rem;
-            border-radius: 60px;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            font-weight: 500;
-            border: 1px solid var(--border-light);
-            transition: all 0.15s;
-            color: var(--text-primary);
-        }
-
-        .skill-item i {
-            color: var(--accent);
-            font-size: 1.3rem;
-            width: 1.8rem;
-            text-align: center;
-        }
-
-        .skill-item:hover {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        /* ===== تماس ===== */
-        .contact-section {
-            margin-top: 3.5rem;
-            padding-top: 2rem;
-            border-top: 2px solid var(--border-light);
-            transition: border-color var(--transition);
-        }
-
-        .contact-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .contact-info {
-            flex: 1 1 300px;
-        }
-
-        .contact-info p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.8rem;
-            max-width: 420px;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-        }
-
-        .contact-links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 500;
-            transition: 0.2s;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid transparent;
-            width: fit-content;
-        }
-
-        .contact-links a i {
-            width: 1.8rem;
-            font-size: 1.3rem;
-            color: var(--accent);
-        }
-
-        .contact-links a:hover {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        /* ===== فوتر ===== */
-        footer {
-            margin-top: 3.2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-light);
-            padding-top: 2rem;
-            transition: border-color var(--transition);
-        }
-
-        /* ===== ریسپانسیو ===== */
-        @media (max-width: 700px) {
-            .container { padding: 1.5rem 1.2rem; }
-            .intro-text h1 { font-size: 2.2rem; }
-            nav { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-            .nav-links { gap: 1.2rem; }
-            .intro-avatar { flex: 1 1 100%; }
-            .avatar-box { width: 140px; height: 140px; font-size: 4rem; }
-            .contact-wrapper { flex-direction: column; align-items: flex-start; }
-            .theme-toggle { bottom: 1.2rem; left: 1.2rem; width: 48px; height: 48px; font-size: 1.4rem; }
-        }
-
-        @media (max-width: 450px) {
-            .social-links a { padding: 0.4rem 1rem; font-size: 0.9rem; }
-            .skills-grid { grid-template-columns: 1fr 1fr; }
-        }
-    </style>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <div class="page-glow page-glow-one" aria-hidden="true"></div>
+  <div class="page-glow page-glow-two" aria-hidden="true"></div>
 
-    <!-- دکمه دارک مود -->
-    <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
-        <i class="fas fa-moon"></i>
-    </button>
+  <header class="site-header" id="top">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Taha Pishnahad home">
+        <span class="brand-mark" aria-hidden="true">
+          <span>&lt;</span>
+          <span>/&gt;</span>
+        </span>
+        <span class="brand-name">Taha<span>.</span></span>
+      </a>
 
-    <div class="container">
-        <!-- ===== منو ===== -->
-        <nav>
-            <div class="logo"><i class="fas fa-code"></i> Taha Pishnahad<span style="color:var(--accent);">.</span></div>
-            <div class="nav-links">
-                <a href="#intro" class="active"><i class="fas fa-home"></i>Info</a>
-                <a href="#skills"><i class="fas fa-cogs"></i>ُSkills</a>
-                <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
+      <div class="nav-links" id="nav-menu">
+        <a class="nav-link active" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <div class="palette-wrap">
+          <button
+            class="icon-button palette-button"
+            id="palette-button"
+            type="button"
+            aria-label="Open theme palette"
+            aria-expanded="false"
+            title="Theme palette"
+          >
+            <span class="palette-icon" aria-hidden="true"></span>
+          </button>
+
+          <div class="palette-menu" id="palette-menu" aria-hidden="true">
+            <p class="palette-title">Atmosphere</p>
+            <button class="palette-option active" type="button" data-theme="default">
+              <span class="palette-dot default-dot"></span>
+              Default
+            </button>
+            <button class="palette-option" type="button" data-theme="ocean">
+              <span class="palette-dot ocean-dot"></span>
+              Ocean
+            </button>
+            <button class="palette-option" type="button" data-theme="midnight">
+              <span class="palette-dot midnight-dot"></span>
+              Midnight
+            </button>
+          </div>
+        </div>
+
+        <button
+          class="theme-toggle icon-button"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch theme"
+          title="Switch theme"
+        >
+          <span class="sun-icon" aria-hidden="true">☼</span>
+          <span class="moon-icon" aria-hidden="true">☾</span>
+        </button>
+
+        <button
+          class="menu-toggle icon-button"
+          id="menu-toggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-grid container">
+        <div class="hero-content reveal">
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            <span>HELLO, I'M</span>
+          </div>
+
+          <h1>
+            Taha
+            <span>Pishnahad</span>
+          </h1>
+
+          <div class="hero-role">
+            <span class="role-line"></span>
+            <strong>Junior Kotlin Developer</strong>
+          </div>
+
+          <p class="hero-secondary">Android Enthusiast</p>
+
+          <p class="hero-description">
+            A junior developer focused on Kotlin and currently exploring
+            Android development, clean interfaces, and the endless
+            possibilities of technology.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#skills">
+              <span>Explore Skills</span>
+              <span class="button-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="button button-secondary" href="#contact">
+              <span>Get in Touch</span>
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span><i></i> Currently learning Android</span>
+            <span class="meta-divider"></span>
+            <span class="mono">KOTLIN / ANDROID</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay" aria-hidden="true">
+          <div class="visual-orbit orbit-one"></div>
+          <div class="visual-orbit orbit-two"></div>
+
+          <div class="visual-grid"></div>
+
+          <div class="code-window visual-card">
+            <div class="window-top">
+              <div class="window-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span class="window-label">taha.kt</span>
+              <span class="window-symbol">···</span>
             </div>
-        </nav>
 
-        <!-- ===== معرفی ===== -->
-        <section class="intro-section" id="intro">
-            <div class="intro-text">
-                <div class="badge"><i class="fas fa-terminal"></i>Junior Kotlin Dev.</div>
-                <h1> Hello, I'm <span>Taha Pishnahd</span> </h1>
-                <p>
-                    I learned to code with passion and strive daily to create smart, practical solutions.
-                    My expertise lies in Kotlin and Android development, with a focus on user experience and performance.
-                </p>
-                <div class="social-links">
-                    <a href="https://github.com/Tahapishnahad" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://ble.ir/whyutry" target="_blank"><i class="fas fa-check-circle"></i> Bale</a>
-                </div>
+            <div class="code-body">
+              <div class="code-line">
+                <span class="line-number">01</span>
+                <span class="code-keyword">fun</span>
+                <span class="code-function">keepLearning</span><span>()</span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">02</span>
+                <span class="indent"></span>
+                <span class="code-keyword">val</span>
+                <span class="code-variable">focus</span>
+                <span>=</span>
+                <span class="code-string">"Android"</span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">03</span>
+                <span class="indent"></span>
+                <span class="code-keyword">val</span>
+                <span class="code-variable">language</span>
+                <span>=</span>
+                <span class="code-string">"Kotlin"</span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">04</span>
+                <span class="indent"></span>
+                <span class="code-keyword">return</span>
+                <span class="code-string">"build → learn → repeat"</span>
+              </div>
+              <div class="code-line">
+                <span class="line-number">05</span>
+                <span></span>
+              </div>
+              <div class="code-line cursor-line">
+                <span class="line-number">06</span>
+                <span class="cursor"></span>
+              </div>
             </div>
-            <div class="intro-avatar">
-                <div class="avatar-box" id="avatarBox">
-                    <i class="fas fa-user-astronaut"></i>
-                </div>
-            </div>
-        </section>
+          </div>
 
-        <!-- ===== مهارت‌ها ===== -->
-        <section class="skills-section" id="skills">
-            <h2><i class="fas fa-laptop-code"></i>My Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item"><i class="fab fa-kickstarter-k"></i> Kotlin</div>
-                <div class="skill-item"><i class="fab fa-html5"></i> Html5</div>
-                <div class="skill-item"><i class="fab fa-android"></i> Android</div>
-                <div class="skill-item"><i class="fas fa-compass"></i> Jetpack Compose</div>
-                <div class="skill-item"><i class="fab fa-git-alt"></i> Git</div>
-            </div>
-        </section>
+          <div class="floating-badge badge-kotlin">
+            <span class="kotlin-symbol">K</span>
+            <span>Kotlin</span>
+          </div>
 
-        <!-- ===== تماس ===== -->
-        <section class="contact-section" id="contact">
-            <h2><i class="fas fa-address-card"></i>Contact Me</h2>
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <p>
-                        <i class="fas fa-chevron-left" style="color:var(--accent);"></i>
-                            I would be happy to receive your message. Please get in touch with me via the following networks.             
-                        </p>
-                    <div class="contact-links">
-                        <a href="https://github.com/Tahapishnahad" target="_blank"><i class="fab fa-github"></i> github.com/Tahapishnahad</a>
-                        <a href="https://ble.ir/whyutry" target="_blank"><i class="fas fa-check-circle" style="color:#22c55e;"></i> Bale: @whyutry</a>
-                        <a href="mailto:tahapishnahad0@gmail.com"><i class="fas fa-envelope"></i> tahapishnahad0@gmail.com</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <div class="floating-badge badge-android">
+            <span class="android-symbol">⌁</span>
+            <span>Android</span>
+          </div>
 
-        <!-- فوتر -->
-        <footer>
+          <div class="floating-node node-one"></div>
+          <div class="floating-node node-two"></div>
+          <div class="floating-node node-three"></div>
+
+          <div class="visual-caption">
+            <span class="caption-line"></span>
+            <span>BUILDING THE NEXT THING</span>
+          </div>
+        </div>
+      </div>
+
+      <a class="scroll-indicator" href="#about" aria-label="Scroll to About section">
+        <span>SCROLL</span>
+        <span class="scroll-line"></span>
+      </a>
+    </section>
+
+    <section class="about section" id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="section-number">01</span>
+          <div>
+            <span class="section-kicker">A LITTLE CONTEXT</span>
+            <h2>About Me</h2>
+          </div>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-intro reveal">
+            <p class="large-copy">
+              I'm a junior developer with a growing focus on
+              <span>Kotlin</span> and Android.
+            </p>
+
             <p>
-                <i class="fas fa-copyright"></i> Made With <i class="fas fa-heart" style="color:#dc2626;"></i> By Taha Pishnahad ©
+              I'm interested in understanding how things work, building
+              useful software, and creating interfaces that feel simple
+              and thoughtful. I'm still early in the journey, which means
+              there's always something new to learn.
             </p>
-            <p style="margin-top:0.4rem; font-size:0.8rem;">
-                <i class="fab fa-github"></i> GitHub · <i class="fas fa-check-circle"></i> Bale · <i class="fas fa-envelope"></i> Gmail
+          </div>
+
+          <div class="about-side reveal reveal-delay">
+            <div class="info-panel">
+              <div class="panel-top">
+                <span class="panel-label">CURRENT FOCUS</span>
+                <span class="panel-icon">↗</span>
+              </div>
+
+              <div class="focus-item">
+                <span class="focus-index">01</span>
+                <div>
+                  <strong>Kotlin</strong>
+                  <p>Strengthening programming fundamentals.</p>
+                </div>
+              </div>
+
+              <div class="focus-item">
+                <span class="focus-index">02</span>
+                <div>
+                  <strong>Android</strong>
+                  <p>Learning Android development step by step.</p>
+                </div>
+              </div>
+
+              <div class="focus-item">
+                <span class="focus-index">03</span>
+                <div>
+                  <strong>Interfaces</strong>
+                  <p>Exploring clean, modern digital experiences.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chips reveal">
+          <span class="chip"><span>⌘</span> Kotlin</span>
+          <span class="chip"><span>◈</span> Android</span>
+          <span class="chip"><span>↗</span> Learning</span>
+          <span class="chip"><span>◇</span> Open Source</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills section" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="section-number">02</span>
+          <div>
+            <span class="section-kicker">WHAT I'M WORKING WITH</span>
+            <h2>Skills</h2>
+          </div>
+        </div>
+
+        <div class="skills-intro reveal">
+          <p>
+            A practical set of technologies I'm learning and using while
+            building my foundation as a developer.
+          </p>
+          <span class="skills-note mono">NO FAKE PERCENTAGES. JUST PROGRESS.</span>
+        </div>
+
+        <div class="skills-grid">
+          <article class="skill-card featured reveal">
+            <div class="skill-card-top">
+              <span class="skill-icon kotlin-icon">K</span>
+              <span class="skill-level">Comfortable</span>
+            </div>
+            <h3>Kotlin</h3>
+            <p>Primary programming language.</p>
+            <div class="skill-line"><span></span></div>
+            <span class="skill-tag">PRIMARY</span>
+          </article>
+
+          <article class="skill-card reveal reveal-delay">
+            <div class="skill-card-top">
+              <span class="skill-icon android-icon">⌁</span>
+              <span class="skill-level learning">Learning</span>
+            </div>
+            <h3>Android Development</h3>
+            <p>Currently learning and developing Android applications.</p>
+            <div class="skill-line"><span></span></div>
+            <span class="skill-tag">CURRENT FOCUS</span>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-card-top">
+              <span class="skill-icon html-icon">&lt;/&gt;</span>
+              <span class="skill-level">Comfortable</span>
+            </div>
+            <h3>HTML</h3>
+            <p>Modern semantic HTML.</p>
+            <div class="skill-line"><span></span></div>
+            <span class="skill-tag">WEB</span>
+          </article>
+
+          <article class="skill-card reveal reveal-delay">
+            <div class="skill-card-top">
+              <span class="skill-icon css-icon">#</span>
+              <span class="skill-level">Comfortable</span>
+            </div>
+            <h3>CSS</h3>
+            <p>Responsive layouts, modern styling and animations.</p>
+            <div class="skill-line"><span></span></div>
+            <span class="skill-tag">WEB</span>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-card-top">
+              <span class="skill-icon js-icon">JS</span>
+              <span class="skill-level">Familiar</span>
+            </div>
+            <h3>JavaScript</h3>
+            <p>Vanilla JavaScript and interactive web interfaces.</p>
+            <div class="skill-line"><span></span></div>
+            <span class="skill-tag">WEB</span>
+          </article>
+
+          <article class="skill-card reveal reveal-delay">
+            <div class="skill-card-top">
+              <span class="skill-icon git-icon">⑂</span>
+              <span class="skill-level">Familiar</span>
+            </div>
+            <h3>Git</h3>
+            <p>Version control.</p>
+            <div class="skill-line"><span></span></div>
+            <span class="skill-tag">WORKFLOW</span>
+          </article>
+
+          <article class="skill-card skill-wide reveal">
+            <div class="skill-card-top">
+              <span class="skill-icon github-icon">◉</span>
+              <span class="skill-level">Familiar</span>
+            </div>
+            <div class="wide-skill-content">
+              <h3>GitHub</h3>
+              <p>Code hosting and developer workflow.</p>
+            </div>
+            <span class="skill-tag">DEVELOPER WORKFLOW</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div class="container">
+        <div class="contact-shell reveal">
+          <div class="contact-decoration" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="contact-heading">
+            <span class="section-kicker">ONE LAST THING</span>
+            <h2>Let's connect<span>.</span></h2>
+            <p>
+              Interested in Android development, programming, or just want
+              to say hello?
             </p>
-        </footer>
+          </div>
+
+          <div class="contact-cards">
+            <article class="contact-card">
+              <div class="contact-card-icon github-contact-icon">◉</div>
+              <div class="contact-card-content">
+                <span class="contact-type">GITHUB</span>
+                <h3>@Tahapishnahad</h3>
+                <p>Explore my code and developer workflow.</p>
+              </div>
+              <a
+                class="contact-button"
+                href="https://github.com/Tahapishnahad/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Taha's GitHub profile in a new tab"
+              >
+                Open GitHub <span>↗</span>
+              </a>
+            </article>
+
+            <article class="contact-card">
+              <div class="contact-card-icon email-contact-icon">@</div>
+              <div class="contact-card-content">
+                <span class="contact-type">EMAIL</span>
+                <h3>tahapishnahad0@gmail.com</h3>
+                <p>For a message, question, or simple hello.</p>
+              </div>
+              <div class="contact-button-group">
+                <button class="contact-button" id="copy-email" type="button">
+                  Copy Email <span class="copy-status">⧉</span>
+                </button>
+                <a class="contact-button secondary-contact-button" href="mailto:tahapishnahad0@gmail.com">
+                  Send Email <span>↗</span>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-mark">&lt;/&gt;</span>
+        <span>Taha Pishnahad</span>
+      </div>
+
+      <p>Built with HTML, CSS &amp; JavaScript.</p>
+
+      <a href="#top" class="back-to-top" aria-label="Back to top">
+        <span>TOP</span>
+        <span>↑</span>
+      </a>
     </div>
+  </footer>
 
-    <script>
-        (function() {
-            "use strict";
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon">✓</span>
+    <span id="toast-message">Copied!</span>
+  </div>
 
-            // ===== دارک مود =====
-            const toggleBtn = document.getElementById('themeToggle');
-            const icon = toggleBtn.querySelector('i');
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                icon.classList.replace('fa-moon', 'fa-sun');
-            }
-
-            toggleBtn.addEventListener('click', function() {
-                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                if (isDark) {
-                    document.documentElement.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
-                    icon.classList.replace('fa-sun', 'fa-moon');
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                    icon.classList.replace('fa-moon', 'fa-sun');
-                }
-            });
-
-            // ===== اسکرول نرم + هایلایت منو =====
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-links a');
-
-            function updateActiveLink() {
-                let current = '';
-                const scrollPos = window.scrollY + 140;
-                sections.forEach(section => {
-                    const top = section.offsetTop;
-                    const height = section.offsetHeight;
-                    if (scrollPos >= top && scrollPos < top + height) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            if (sections.length) {
-                window.addEventListener('scroll', updateActiveLink);
-                updateActiveLink();
-            }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const target = this.getAttribute('href');
-                    if (target && target.startsWith('#') && target !== '#') {
-                        e.preventDefault();
-                        const el = document.querySelector(target);
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-            // ===== کلیک روی آواتار =====
-            const avatarBox = document.getElementById('avatarBox');
-            if (avatarBox) {
-                avatarBox.addEventListener('click', function() {
-                    const iconEl = this.querySelector('i');
-                    if (iconEl.classList.contains('fa-user-astronaut')) {
-                        iconEl.classList.replace('fa-user-astronaut', 'fa-laptop-code');
-                    } else {
-                        iconEl.classList.replace('fa-laptop-code', 'fa-user-astronaut');
-                    }
-                });
-            }
-
-            console.log('Taha Pishnahad - Personal Website');
-        })();
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
